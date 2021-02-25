@@ -1,32 +1,16 @@
 const router = require('express').Router();
-const path = require('path');
-const fs = require('fs');
+const {
+  getUsers,
+  getUserId,
+  createUser,
+  updateUserProfile,
+  updateUserAvatar,
+} = require('../controllers/users.js');
 
-router.get('/users', (req, res) => {
-  fs.readFile(path.join('data', 'users.json'), { encoding: 'utf8' }, (error, data) => {
-    if (error) {
-      res.status(500).send({ message: error.message });
-    } else {
-      const users = JSON.parse(data);
-      res.send(users);
-    }
-  });
-});
-
-router.get('/users/:id', (req, res) => {
-  fs.readFile(path.join('data', 'users.json'), { encoding: 'utf8' }, (error, data) => {
-    if (error) {
-      res.status(500).send({ message: error.message });
-    } else {
-      const users = JSON.parse(data);
-      const currentUser = users.find((value) => value._id === req.params.id);
-      if (currentUser) {
-        res.send(currentUser);
-      } else {
-        res.status(404).send({ message: 'Нет пользователя с таким id' });
-      }
-    }
-  });
-});
+router.get('/users', getUsers);
+router.get('/users/:_id', getUserId);
+router.post('/users', createUser);
+router.patch('/users/me', updateUserProfile);
+router.patch('/users/me/avatar', updateUserAvatar);
 
 module.exports = router;
