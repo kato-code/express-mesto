@@ -8,6 +8,7 @@ const getCards = (req, res) => {
 
 const addCard = (req, res) => {
   const { name, link } = req.body;
+
   Card.create({ name, link, owner: req.user._id })
     .then((card) => res.status(200).send(card))
     .catch((error) => {
@@ -29,12 +30,9 @@ const deleteCard = (req, res) => {
     })
     .catch((error) => {
       if (error.name === 'CastError') {
-        res.status(400).send({ message: 'Введены некорректные данные' });
-      } else if (error.name === 'DocumentNotFoundError') {
-        res.status(404).send({ message: 'Карточка с таким id не найдена' });
-      } else {
-        res.status(500).send({ message: 'На сервере произошла ошибка' });
+        return res.status(400).send({ message: 'Введены некорректные данные' });
       }
+      return res.status(500).send({ message: 'На сервере произошла ошибка' });
     });
 };
 
@@ -53,12 +51,9 @@ const likeCard = (req, res) => {
     })
     .catch((error) => {
       if (error.name === 'CastError') {
-        res.status(400).send({ message: 'Введены некорректные данные' });
-      } else if (error.name === 'DocumentNotFoundError') {
-        res.status(404).send({ message: 'Карточка с таким id не найдена' });
-      } else {
-        res.status(500).send({ message: 'На сервере произошла ошибка' });
+        return res.status(400).send({ message: 'Введены некорректные данные' });
       }
+      return res.status(500).send({ message: 'На сервере произошла ошибка' });
     });
 };
 
@@ -77,12 +72,9 @@ const dislikeCard = (req, res) => {
     })
     .catch((error) => {
       if (error.name === 'CastError') {
-        res.status(400).send({ message: 'Введены некорректные данные' });
-      } else if (error.name === 'DocumentNotFoundError') {
-        res.status(404).send({ message: 'Карточка с таким id не найдена' });
-      } else {
-        res.status(500).send({ message: 'На сервере произошла ошибка' });
+        return res.status(400).send({ message: 'Введены некорректные данные' });
       }
+      return res.status(500).send({ message: 'На сервере произошла ошибка' });
     });
 };
 
