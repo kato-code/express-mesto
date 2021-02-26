@@ -6,10 +6,11 @@ const getCards = (req, res) => {
     .catch(() => res.status(500).send({ message: 'На сервере произошла ошибка' }));
 };
 
-const addCard = (req, res) => {
+const createCard = (req, res) => {
   const { name, link } = req.body;
+  const owner = req.user._id;
 
-  Card.create({ name, link, owner: req.user._id })
+  Card.create({ name, link, owner })
     .then((card) => res.status(200).send(card))
     .catch((error) => {
       if (error.name === 'ValidationError') {
@@ -80,7 +81,7 @@ const dislikeCard = (req, res) => {
 
 module.exports = {
   getCards,
-  addCard,
+  createCard,
   deleteCard,
   likeCard,
   dislikeCard,
