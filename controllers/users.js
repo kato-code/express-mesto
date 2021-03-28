@@ -14,7 +14,8 @@ const UnauthorizedError = require('../errors/UnauthorizedError.js');
 // получить список юзеров
 const getUsers = (req, res, next) => {
   User.find({})
-    .then((users) => res.status(200).send(users))
+    // .then((users) => res.status(200).send(users))
+    .then((users) => res.send({ data: users }))
     .catch(next);
 };
 
@@ -27,7 +28,8 @@ const getUserProfile = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('Пользователь с таким id не найден');
       }
-      res.status(200).send({ data: user });
+      // res.status(200).send({ data: user });
+      res.send({ message: user });
     })
     .catch((error) => {
       if (error.name === 'CastError') {
@@ -46,7 +48,8 @@ const getUserProfileById = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('Пользователь с таким id не найден');
       }
-      res.status(200).send({ data: user });
+      // res.status(200).send({ data: user });
+      res.send({ message: user });
     })
     .catch((error) => {
       if (error.name === 'CastError') {
@@ -92,10 +95,11 @@ const updateUserProfile = (req, res, next) => {
 
   return User.findByIdAndUpdate(req.user._id, { name, about }, { new: true, runValidators: true })
     .then((user) => {
-      if (user === null) {
+      if (!user) {
         throw new NotFoundError('Пользователь с таким id не найден');
       }
-      res.status(200).send({ data: user });
+      // res.status(200).send({ data: user });
+      res.send({ data: user });
     })
     .catch((error) => {
       if (error.name === 'CastError') {
@@ -117,7 +121,8 @@ const updateUserAvatar = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('Пользователь с таким id не найден');
       }
-      res.status(200).send({ data: user });
+      // res.status(200).send({ data: user });
+      res.send({ data: user });
     })
     .catch((error) => {
       if (error.name === 'CastError') {
