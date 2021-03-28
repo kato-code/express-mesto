@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const validator = require('validator');
+// const validator = require('validator');
 
 const cardSchema = new mongoose.Schema({
   name: {
@@ -13,7 +13,7 @@ const cardSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator(i) {
-        return validator.isUrl(i);
+        return /^https?:\/\/(www\.)?.+#?$/.test(i);
       },
       message: 'Введите корректный адрес URL',
     },
@@ -33,6 +33,8 @@ const cardSchema = new mongoose.Schema({
     default: Date.now,
   },
 },
-{ versionKey: false });
+// { versionKey: false }
+// eslint-disable-next-line function-paren-newline
+);
 
 module.exports = mongoose.model('card', cardSchema);
