@@ -16,7 +16,7 @@ router.get('/users', getUsers);
 router.get('/users/me', getUserProfile);
 
 // получить информацию о юзере по id
-router.get('/users/:_id', celebrate({
+router.get('/users/:userId', celebrate({
   params: Joi.object().keys({
     userId: Joi.string().required().length(24).hex(),
   }),
