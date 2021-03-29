@@ -46,7 +46,7 @@ const getUserProfileById = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('Пользователь с таким id не найден');
       }
-      res.status(200).send({ data: user });
+      res.status(200).send(user);
     })
     .catch((error) => {
       if (error.name === 'CastError') {
@@ -92,7 +92,7 @@ const updateUserProfile = (req, res, next) => {
 
   return User.findByIdAndUpdate(req.user._id, { name, about }, { new: true, runValidators: true })
     .then((user) => {
-      if (user === null) {
+      if (!user) {
         throw new NotFoundError('Пользователь с таким id не найден');
       }
       res.status(200).send(user);
