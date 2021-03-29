@@ -94,16 +94,15 @@ const createUser = (req, res, next) => {
         .then((user) => {
           res.send({ user });
         })
-        .catch((err) => {
-          if (err.name === 'ValidationError') {
-            next(new BadRequestError(err.message));
-          } else {
-            next(new ConflictError(('Пользователь с таким email уже существует')));
+        .catch((error) => {
+          if (error.name === 'ValidationError') {
+            throw new BadRequestError('Введены некорректные данные');
           }
+          throw new ConflictError('Пользователь уже существует');
         });
     })
-    .catch((err) => {
-      const error = new BadRequestError(err.message);
+    .catch((error) => {
+      // const error = new BadRequestError(err.message);
       next(error);
     });
 };
