@@ -6,7 +6,7 @@ const signinValidator = celebrate({
     email: Joi.string().required().email().messages({
       'any.required': 'Обязательное поле',
     }),
-    password: Joi.string().required().min(5).messages({
+    password: Joi.string().required().min(8).messages({
       'string.min': 'Минимум 5 символов',
       'string.max': 'Максимум 30 символов',
       'any.required': 'Обязательное поле',
@@ -22,7 +22,7 @@ const signupValidator = celebrate({
     email: Joi.string().required().email().messages({
       'any.required': 'Обязательное поле',
     }),
-    password: Joi.string().required().min(5).messages({
+    password: Joi.string().required().min(8).messages({
       'string.min': 'Минимум 5 символов',
       'string.max': 'Максимум 30 символов',
       'any.required': 'Обязательное поле',
