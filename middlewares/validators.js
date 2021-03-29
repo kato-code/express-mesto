@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 const { celebrate, Joi } = require('celebrate');
 
 const signinValidator = celebrate({

@@ -19,7 +19,7 @@ const getUsers = (req, res, next) => {
     .catch(next);
 };
 
-// // получить информацию о текущем юзере
+// получить информацию о текущем юзере
 const getUserProfile = (req, res, next) => {
   const id = req.user._id;
 
@@ -40,8 +40,6 @@ const getUserProfile = (req, res, next) => {
 
 // получить информацию о юзере по id
 const getUserProfileById = (req, res, next) => {
-  // const { userId } = req.params;
-
   User.findById({ _id: req.params.id })
     .then((user) => {
       if (!user) {
@@ -131,7 +129,7 @@ const updateUserAvatar = (req, res, next) => {
     });
 };
 
-// // аутентификация
+// аутентификация
 const loginUser = (req, res, next) => {
   const { email, password } = req.body;
 
