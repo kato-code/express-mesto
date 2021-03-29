@@ -128,15 +128,13 @@ const loginUser = (req, res, next) => {
 
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      if (!user) {
-        throw new UnauthorizedError('Пользователь не зарегистрирован');
-      }
       const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
       res.send({ token });
     })
-    .catch((error) => {
-      next(error);
-    });
+    .catch(() => {
+      throw new UnauthorizedError('Пользователь не зарегистрирован');
+    })
+    .catch(next);
 };
 
 module.exports = {
