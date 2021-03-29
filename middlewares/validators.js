@@ -7,7 +7,7 @@ const signinValidator = celebrate({
       'any.required': 'Обязательное поле',
     }),
     password: Joi.string().required().pattern(/^[A-Za-z0-9]/i).messages({
-      'string.min': 'Минимум 2 символа',
+      'string.min': 'Минимум 5 символов',
       'string.max': 'Максимум 30 символов',
       'any.required': 'Обязательное поле',
     }),
