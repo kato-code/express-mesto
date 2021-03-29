@@ -171,14 +171,14 @@ const UnauthorizedError = require('../errors/UnauthorizedError');
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 // Запрос списка пользователей
-module.exports.getUsers = (req, res, next) => {
+const getUsers = (req, res, next) => {
   User.find({})
     .then((users) => res.status(200).send(users))
     .catch(next);
 };
 
 // Запрос информации о текущем пользователе
-module.exports.getCurrentUser = (req, res, next) => {
+const getUserProfile = (req, res, next) => {
   const userId = req.user._id;
 
   User.findById(userId)
@@ -199,7 +199,7 @@ module.exports.getCurrentUser = (req, res, next) => {
 };
 
 // Запрос информации о пользователе по id
-module.exports.getUserById = (req, res, next) => {
+const getUserProfileById = (req, res, next) => {
   const { userId } = req.params;
 
   User.findById(userId)
@@ -220,7 +220,7 @@ module.exports.getUserById = (req, res, next) => {
 };
 
 // Запрос на создание пользователя
-module.exports.createUser = (req, res, next) => {
+const createUser = (req, res, next) => {
   const {
     name, about, avatar, email, password,
   } = req.body;
@@ -257,7 +257,7 @@ module.exports.createUser = (req, res, next) => {
 };
 
 // Контроллер аутентификации
-module.exports.login = (req, res, next) => {
+const loginUser = (req, res, next) => {
   const { email, password } = req.body;
 
   return User.findUserByCredentials(email, password)
@@ -272,7 +272,7 @@ module.exports.login = (req, res, next) => {
 };
 
 // Запрос на обновление информации в профиле
-module.exports.updateProfileInfo = (req, res, next) => {
+const updateUserProfile = (req, res, next) => {
   const { name, about } = req.body;
 
   User.findByIdAndUpdate(
@@ -301,7 +301,7 @@ module.exports.updateProfileInfo = (req, res, next) => {
 };
 
 // Запрос на обновление аватара пользователя
-module.exports.updateAvatar = (req, res, next) => {
+const updateUserAvatar = (req, res, next) => {
   const { avatar } = req.body;
 
   User.findByIdAndUpdate(
@@ -328,4 +328,14 @@ module.exports.updateAvatar = (req, res, next) => {
         next(err);
       }
     });
+};
+
+module.exports = {
+  getUsers,
+  getUserProfile,
+  getUserProfileById,
+  createUser,
+  updateUserProfile,
+  updateUserAvatar,
+  loginUser,
 };
