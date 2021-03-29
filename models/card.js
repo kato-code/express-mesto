@@ -13,7 +13,6 @@ const cardSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator(i) {
-        // return /^https?:\/\/(www\.)?.+#?$/.test(i);
         return validator.isURL(i);
       },
       message: 'Введите корректный адрес URL',
