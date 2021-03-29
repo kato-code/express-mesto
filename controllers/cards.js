@@ -38,8 +38,8 @@ const deleteCard = (req, res, next) => {
         throw new AuthorizationError('Недостаточно прав');
       }
       Card.deleteOne(card)
-        .then((data) => {
-          res.send({ messages: `Карточка с id: ${data._id} успешно удалена` });
+        .then(() => {
+          res.send({ messages: 'Карточка успешно удалена' });
         })
         .catch((error) => {
           if (error.name === 'CastError') {
