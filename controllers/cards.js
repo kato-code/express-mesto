@@ -41,14 +41,13 @@ const deleteCard = (req, res, next) => {
         .then((data) => {
           res.send({ messages: `Карточка с id: ${data._id} успешно удалена` });
         })
-        .catch(next);
+        .catch((error) => {
+          if (error.name === 'CastError') {
+            throw new BadRequestError('Карточка с таким id не найдена');
+          }
+          next(error);
+        });
     });
-  // .catch((error) => {
-  //   if (error.name === 'CastError') {
-  //     throw new BadRequestError('Карточка с таким id не найдена');
-  //   }
-  //   next(error);
-  // });
 };
 
 // поставить лайк
