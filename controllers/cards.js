@@ -47,7 +47,8 @@ const deleteCard = (req, res, next) => {
           }
           next(error);
         });
-    });
+    })
+    .catch(next);
 };
 
 // поставить лайк
