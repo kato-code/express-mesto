@@ -33,9 +33,6 @@ const cardSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-},
-// { versionKey: false }
-// eslint-disable-next-line function-paren-newline
-);
+});
 
 module.exports = mongoose.model('card', cardSchema);

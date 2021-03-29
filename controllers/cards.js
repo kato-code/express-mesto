@@ -37,16 +37,12 @@ const deleteCard = (req, res, next) => {
       if (card.owner.toString() != req.user._id) {
         throw new AuthorizationError('Недостаточно прав');
       }
-      // return Card.findByIdAndDelete(req.params._id);
       Card.deleteOne(card)
         .then((data) => {
           res.send({ messages: `Карточка с id: ${data._id} успешно удалена` });
         })
         .catch(next);
     });
-  // .then(() => {
-  //   res.status(200).send({ messages: 'Карточка удалена' });
-  // })
   // .catch((error) => {
   //   if (error.name === 'CastError') {
   //     throw new BadRequestError('Карточка с таким id не найдена');
