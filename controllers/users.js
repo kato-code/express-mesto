@@ -73,9 +73,7 @@ const createUser = (req, res, next) => {
           next(new ConflictError('Пользователь уже существует'));
         });
     })
-    .catch((error) => {
-      next(error);
-    });
+    .catch(next);
 };
 
 // обновить информацию в профиле юзера
@@ -131,10 +129,13 @@ const loginUser = (req, res, next) => {
       const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
       res.send({ token });
     })
-    .catch(() => {
-      throw new UnauthorizedError('Пользователь не зарегистрирован');
-    })
-    .catch(next);
+    .catch((error) => {
+      if (error.name === 'ValidationError') {
+        throw new UnauthorizedError('Пользователь не зарегистрирован');
+      }
+      next(error);
+    });
+  // .catch(next);
 };
 
 module.exports = {
