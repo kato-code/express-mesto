@@ -21,9 +21,9 @@ const getUsers = (req, res, next) => {
 
 // // получить информацию о текущем юзере
 const getUserProfile = (req, res, next) => {
-  const userId = req.user._id;
+  const id = req.user._id;
 
-  User.findById(userId)
+  User.findById(id)
     .then((user) => {
       if (!user) {
         throw new NotFoundError('Пользователь с таким id не найден');
@@ -40,9 +40,9 @@ const getUserProfile = (req, res, next) => {
 
 // получить информацию о юзере по id
 const getUserProfileById = (req, res, next) => {
-  const { userId } = req.params;
+  // const { userId } = req.params;
 
-  User.findById(userId)
+  User.findById({ _id: req.params.id })
     .then((user) => {
       if (!user) {
         throw new NotFoundError('Пользователь с таким id не найден');
