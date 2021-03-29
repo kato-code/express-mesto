@@ -96,9 +96,9 @@ const createUser = (req, res, next) => {
         })
         .catch((error) => {
           if (error.name === 'ValidationError') {
-            throw new BadRequestError('Введены некорректные данные');
+            next(new BadRequestError('Введены некорректные данные'));
           }
-          throw new ConflictError('Пользователь уже существует');
+          next(new ConflictError('Пользователь уже существует'));
         });
     })
     .catch((error) => {
