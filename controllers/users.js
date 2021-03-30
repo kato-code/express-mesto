@@ -56,26 +56,6 @@ const getUserProfileById = (req, res, next) => {
 };
 
 // создать нового юзера
-// const createUser = (req, res, next) => {
-//   bcrypt.hash(req.body.password, 10)
-//     .then((hash) => {
-//       User.create({
-//         email: req.body.email,
-//         password: hash,
-//       })
-//         .then((user) => {
-//           res.send({ user });
-//         })
-//         .catch((error) => {
-//           if (error.name === 'ValidationError') {
-//             next(new BadRequestError('Введены некорректные данные'));
-//           }
-//           next(new ConflictError('Пользователь уже существует'));
-//         });
-//     })
-//     .catch(next);
-// };
-
 const createUser = (req, res, next) => {
   const {
     name, about, avatar, email, password,
